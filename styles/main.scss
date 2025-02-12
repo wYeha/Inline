@@ -1,0 +1,12 @@
+@use 'normilize';
+@use 'fonts';
+@use 'variables';
+@use 'utils';
+@use 'globals';
+
+@use './blocks/tabs';
+@use './blocks/specification';
+@use './blocks/slider';
+@use './blocks/product-card';
+@use './blocks/producer';
+@use './blocks/button';

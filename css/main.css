@@ -1,0 +1,677 @@
+@charset "UTF-8";
+/**
+  Нормализация блочной модели
+ */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+/**
+		Убираем внутренние отступы слева тегам списков,
+		у которых есть атрибут class
+	 */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+		Убираем внешние отступы body и двум другим тегам,
+		у которых есть атрибут class
+	 */
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+		Убираем внешние отступы вертикали нужным тегам,
+		у которых есть атрибут class
+	 */
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+		Убираем стандартный маркер маркированному списку,
+		у которого есть атрибут class
+	 */
+:where(ul[class]) {
+  list-style: none;
+}
+
+:where(address[class]) {
+  font-style: normal;
+}
+
+/**
+		Обнуляем вертикальные внешние отступы параграфа,
+		объявляем локальную переменную для внешнего отступа вниз,
+		чтобы избежать взаимодействие с более сложным селектором
+	 */
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+/**
+		Упрощаем работу с изображениями и видео
+	 */
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
+		Наследуем свойства шрифт для полей ввода
+	 */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+  		Пригодится в большинстве ситуаций
+  		(когда, например, нужно будет "прижать" футер к низу сайта)
+  	 */
+  height: 100%;
+  /**
+  		Убираем скачок интерфейса по горизонтали
+  		при появлении / исчезновении скроллбара
+  	 */
+  scrollbar-gutter: stable;
+}
+
+/**
+		Плавный скролл
+	 */
+html,
+:has(:target) {
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+  		Пригодится в большинстве ситуаций
+  		(когда, например, нужно будет "прижать" футер к низу сайта)
+  	 */
+  min-height: 100%;
+  /**
+  		Унифицированный интерлиньяж
+  	 */
+  line-height: 1.5;
+}
+
+/**
+		Нормализация высоты элемента ссылки при его инспектировании в DevTools
+	 */
+a:where([class]) {
+  display: inline-flex;
+}
+
+/**
+		Курсор-рука при наведении на элемент
+	 */
+button,
+label {
+  cursor: pointer;
+}
+
+/**
+		Приводим к единому цвету svg-элементы
+	 */
+[fill] {
+  fill: currentColor;
+}
+
+[stroke] {
+  stroke: currentColor;
+}
+
+/**
+		Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+	 */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+		Удаляем все анимации и переходы для людей,
+		которые предпочитают их не использовать
+	 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+:root {
+  --color-base: #444444;
+  --color-grey-alt: #89817F;
+  --color-grey: #B2B2B2;
+  --color-grey-product-card: #DEDEDE;
+  --color-grey-transparent: rgba(178, 178, 178, 0.5);
+  --color-accent: #429F3A;
+  --color-accent-hover: #A4E99E;
+  --color-light: #FFFFFF;
+  --font-family-base: "Montserrat", sans-serif;
+  --container-width: 66.625rem;
+  --container-padding-x: 1.25rem;
+  --section-padding-y: clamp(3rem, 2.8679577465rem + 0.5633802817vw, 3.375rem);
+  --transition-duration: 0.2s;
+  --box-shadow: 0 0.125rem 0.625rem 0.125rem rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  -webkit-clip-path: inset(100%) !important;
+          clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 47.99875rem) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+@media (max-width: 30.06125rem) {
+  .hidden-mobile-s {
+    display: none !important;
+  }
+}
+
+@media (min-width: 47.99875rem) {
+  .visible-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 30.06125rem) {
+  .visible-mobile-s {
+    display: none !important;
+  }
+}
+
+.accent-text {
+  font-weight: 500;
+}
+
+body {
+  font-size: clamp(0.875rem, 0.875rem + 0vw, 0.875rem);
+  font-family: var(--font-family-base);
+  color: var(--color-base);
+}
+
+.section__title {
+  padding-bottom: clamp(1.5rem, 1.3679577465rem + 0.5633802817vw, 1.875rem);
+}
+
+button {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tabs__content:not(.is-active) {
+  display: none;
+}
+.tabs__content > *:last-child {
+  padding-top: var(--section-padding-y);
+}
+.tabs__text {
+  font-size: 0.875rem;
+}
+.tabs__text:not(:last-child) {
+  padding-bottom: clamp(1.875rem, 1.6549295775rem + 0.9389671362vw, 2.5rem);
+}
+@media (max-width: 30.06125rem) {
+  .tabs__text:not(:last-child) {
+    padding-bottom: 0;
+  }
+}
+.tabs__text p:not(:last-child) {
+  padding-bottom: 1.5rem;
+}
+.tabs__header:not(:last-child) {
+  padding-bottom: clamp(1.5rem, 0.9278169014rem + 2.441314554vw, 3.125rem);
+}
+.tabs__buttons {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  -moz-column-gap: clamp(1.5rem, -0.1725352113rem + 7.1361502347vw, 6.25rem);
+       column-gap: clamp(1.5rem, -0.1725352113rem + 7.1361502347vw, 6.25rem);
+  position: relative;
+}
+@media (max-width: 67.49875rem) {
+  .tabs__buttons {
+    padding-inline: 0;
+    margin-inline: 1.25rem;
+  }
+}
+.tabs__buttons::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  max-width: 66.625rem;
+  height: 0.03125rem;
+  background-color: var(--color-grey);
+  bottom: 0;
+  left: 0;
+}
+.tabs__buttons:after {
+  left: 50%;
+  translate: -50%;
+}
+.tabs__button {
+  font-size: clamp(0.9375rem, 0.9154929577rem + 0.0938967136vw, 1rem);
+  padding-top: 1rem;
+  background-color: transparent;
+  font-weight: 500;
+  color: var(--color-base);
+  padding-bottom: clamp(0.3125rem, 0.1144366197rem + 0.8450704225vw, 0.875rem);
+}
+.tabs__button:not(.is-active) {
+  position: relative;
+}
+.tabs__button:not(.is-active)::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  max-width: 0;
+  height: 0.03125rem;
+  background-color: transparent;
+  bottom: 0;
+  left: 0;
+}
+.tabs__button:not(.is-active):after {
+  left: 50%;
+}
+.tabs__button.is-active {
+  font-weight: 600;
+  position: relative;
+}
+.tabs__button.is-active::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  max-width: 100%;
+  height: clamp(0.1875rem, 0.1654929577rem + 0.0938967136vw, 0.25rem);
+  background-color: var(--color-accent);
+  bottom: 0;
+  left: 0;
+}
+@media (min-width: 30.06125rem) {
+  .tabs__button.is-active {
+    position: relative;
+  }
+  .tabs__button.is-active::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    max-width: 106%;
+    height: clamp(0.1875rem, 0.1654929577rem + 0.0938967136vw, 0.25rem);
+    background-color: var(--color-accent);
+    bottom: 0;
+    left: 0;
+  }
+}
+.tabs__button.is-active:after {
+  left: 0;
+  width: 100%;
+  border-radius: 1.25rem;
+  bottom: 0.0625rem;
+  transition: var(--transition-duration);
+}
+@media (min-width: 30.06125rem) {
+  .tabs__button.is-active:after {
+    left: -3%;
+    width: 110%;
+  }
+}
+
+.specification {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  -moz-column-gap: clamp(0.9375rem, -0.9330985915rem + 7.9812206573vw, 6.25rem);
+       column-gap: clamp(0.9375rem, -0.9330985915rem + 7.9812206573vw, 6.25rem);
+  row-gap: clamp(0.9375rem, 0.6073943662rem + 1.4084507042vw, 1.875rem);
+}
+@media (max-width: 47.99875rem) {
+  .specification {
+    grid-template-columns: 1fr;
+  }
+}
+.specification__title {
+  font-size: clamp(0.9375rem, 0.9154929577rem + 0.0938967136vw, 1rem);
+  line-height: 133%;
+  font-weight: 600;
+}
+@media (min-width: 47.99875rem) {
+  .specification__title {
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 125%;
+  }
+}
+.specification__body {
+  display: grid;
+  row-gap: clamp(0.9375rem, 0.7834507042rem + 0.6572769953vw, 1.375rem);
+}
+.specification__list {
+  display: grid;
+  row-gap: 0.75rem;
+}
+.specification__item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  position: relative;
+}
+.specification__item::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  max-width: 100%;
+  height: 0.03125rem;
+  background-color: var(--color-grey-transparent);
+  bottom: 0;
+  left: 0;
+}
+.specification__value {
+  text-align: right;
+}
+
+@media (max-width: 47.99875rem) {
+  .slider {
+    margin-inline: calc(-1 * var(--container-padding-x));
+  }
+}
+.slider__list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -moz-column-gap: 0.625rem;
+       column-gap: 0.625rem;
+}
+@media (max-width: 47.99875rem) {
+  .slider__list {
+    height: 13.75rem;
+    overflow: scroll;
+    padding-inline: var(--container-padding-x);
+  }
+}
+@media (max-width: 47.99875rem) {
+  .slider__item {
+    flex-shrink: 0;
+    max-height: 12rem;
+  }
+}
+
+.product-card {
+  width: 15.625rem;
+  border-radius: 0.625rem;
+  border: 0.0625rem solid var(--color-grey-product-card);
+  display: grid;
+  position: relative;
+  transition: var(--transition-duration);
+}
+@media (hover: hover) {
+  .product-card:hover {
+    box-shadow: var(--box-shadow);
+  }
+}
+@media (hover: none) {
+  .product-card:active {
+    box-shadow: var(--box-shadow);
+  }
+}
+.product-card__link {
+  text-decoration: none;
+  color: inherit;
+}
+.product-card__link::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+}
+@media (max-width: 47.99875rem) {
+  .product-card {
+    width: 18rem;
+    padding: 1.25rem;
+    grid-template-columns: 6.25rem auto;
+    grid-template-rows: 1fr 1fr auto;
+    gap: 0.75rem;
+    box-shadow: var(--box-shadow);
+    -moz-box-shadow: var(--box-shadow);
+    -webkit-box-shadow: var(--box-shadow);
+    border: none;
+  }
+}
+.product-card__image {
+  border-top-right-radius: 0.5625rem;
+  border-top-left-radius: 0.5625rem;
+}
+@media (max-width: 47.99875rem) {
+  .product-card__image {
+    border-radius: 0.5625rem;
+    grid-row: span 2;
+    grid-column: 1;
+  }
+}
+.product-card__inner {
+  padding: clamp(0.625rem, 0.536971831rem + 0.3755868545vw, 0.875rem) 0 clamp(0.875rem, 0.7429577465rem + 0.5633802817vw, 1.25rem) clamp(0.5rem, 0.411971831rem + 0.3755868545vw, 0.75rem);
+  display: grid;
+  row-gap: clamp(1.25rem, 1.0299295775rem + 0.9389671362vw, 1.875rem);
+}
+@media (max-width: 47.99875rem) {
+  .product-card__inner {
+    padding: 0;
+    display: contents;
+  }
+}
+.product-card__title-container {
+  display: grid;
+  row-gap: clamp(0rem, -0.1540492958rem + 0.6572769953vw, 0.4375rem);
+  max-height: 2.25rem;
+}
+@media (max-width: 47.99875rem) {
+  .product-card__title-container {
+    row-gap: 0;
+  }
+}
+.product-card__title {
+  font-size: clamp(0.75rem, 0.7059859155rem + 0.1877934272vw, 0.875rem);
+  font-weight: 600;
+}
+@media (max-width: 47.99875rem) {
+  .product-card__title {
+    font-size: 0.9375rem;
+  }
+}
+.product-card__order-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  row-gap: 0.1875rem;
+}
+@media (max-width: 47.99875rem) {
+  .product-card__order-container {
+    display: contents;
+  }
+}
+.product-card__price-container {
+  position: relative;
+}
+@media (max-width: 47.99875rem) {
+  .product-card__price-container {
+    grid-row: 2;
+    grid-column: 2;
+    justify-self: end;
+    align-self: end;
+  }
+}
+.product-card__price {
+  font-size: clamp(0.875rem, 0.7429577465rem + 0.5633802817vw, 1.25rem);
+  font-weight: 600;
+  line-height: 90%;
+}
+.product-card__volume {
+  padding-left: 0.5625rem;
+  position: relative;
+  font-size: 0.75rem;
+  color: var(--color-grey-alt);
+}
+.product-card__volume::before {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  content: "/";
+  left: 0;
+}
+.product-card__button {
+  position: relative;
+}
+@media (max-width: 47.99875rem) {
+  .product-card__button {
+    grid-column: span 2;
+    grid-row: 3;
+  }
+}
+.product-card__rating {
+  display: flex;
+  -moz-column-gap: 0.125rem;
+       column-gap: 0.125rem;
+}
+
+.producer--product-card {
+  color: var(--color-gray-alt);
+  font-size: clamp(0.6875rem, 0.6654929577rem + 0.0938967136vw, 0.75rem);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  font-size: 0.9375rem;
+}
+.button--product-card {
+  padding-inline: 1.3125rem;
+  background-color: var(--color-accent);
+  height: clamp(1.75rem, 1.573943662rem + 0.7511737089vw, 2.25rem);
+  border-start-start-radius: 1.25rem;
+  border-end-start-radius: 1.25rem;
+  transition: var(--transition-duration);
+  color: white;
+  -moz-column-gap: 2.125rem;
+       column-gap: 2.125rem;
+  font-weight: 600;
+}
+.button--product-card svg {
+  max-width: clamp(1rem, 0.823943662rem + 0.7511737089vw, 1.5rem);
+}
+@media (hover: hover) {
+  .button--product-card:hover {
+    padding-inline: clamp(1.25rem, 1.0299295775rem + 0.9389671362vw, 1.875rem);
+  }
+}
+@media (hover: none) {
+  .button--product-card:active {
+    padding-inline: clamp(1.25rem, 1.0299295775rem + 0.9389671362vw, 1.875rem);
+  }
+}
+@media (max-width: 47.99875rem) {
+  .button--product-card {
+    justify-content: center;
+    border: 0.0625rem solid var(--color-grey-product-card);
+    border-radius: 0.3125rem;
+    padding-inline: 0;
+    height: 2.875rem;
+    background-color: transparent;
+    color: var(--color-accent);
+    position: relative;
+  }
+}
+@media (max-width: 47.99875rem) and (hover: hover) {
+  .button--product-card:hover {
+    background-color: var(--color-accent-hover);
+  }
+}
+@media (max-width: 47.99875rem) and (hover: none) {
+  .button--product-card:active {
+    background-color: var(--color-accent-hover);
+  }
+}
+@media (max-width: 47.99875rem) {
+  .button--product-card::before {
+    content: "";
+    position: absolute;
+    background-image: url("../icons/plus.svg");
+    left: 64%;
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  .button--product-card svg {
+    max-width: 1rem;
+  }
+}/*# sourceMappingURL=main.css.map */
