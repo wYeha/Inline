@@ -11,25 +11,35 @@
 			display: none;
 		}
 
-		&>*:last-child {
-			padding-top: var(--section-padding-y);
+		&--about {
+			display: grid;
+			grid-template-columns: auto fluid(376, 300);
+			justify-content: space-between;
+			column-gap: fluid(180, 0);
+
+			@include mobile {
+				grid-template-columns: auto;
+			}
 		}
+
+		
 	}
 
 	&__text {
 		font-size: rem(14);
+		padding-bottom: fluid(40, 30);
 
-		&:not(:last-child) {
-			padding-bottom: fluid(40, 30);
-
-			@include mobile-s {
-				padding-bottom: 0;
-			}
+		&--reviews {
+			max-width: rem(523);
+			padding-bottom: rem(32);
 		}
 
 		p:not(:last-child) {
 			padding-bottom: rem(24);
 
+			@include mobile-s {
+				padding-bottom: 0;
+			}
 		}
 	}
 
@@ -96,6 +106,32 @@
 					width: 110%;
 				}
 			}
+		}
+	}
+
+	&__about {
+
+		&-image {
+			background-image: url('../images/producer-1.jpg');
+			background-size: cover;
+			background-position-x: center;
+			height: rem(267);
+			border-radius: rem(5);
+			box-shadow: var(--box-shadow);
+
+			@include mobile {
+				height: rem(295);
+			}
+		}
+
+		&-button-box {
+			display: flex;
+			padding-top: rem(30);
+			column-gap: rem(8);
+		}
+
+		&-title {
+			padding-bottom: rem(17);
 		}
 	}
 }

@@ -9,6 +9,7 @@
 	--color-accent: #429F3A;
 	--color-accent-hover: #A4E99E;
 	--color-light: #FFFFFF;
+	--color-like: #FF2424;
 
 	--font-family-base: 'Montserrat', sans-serif;
 
@@ -22,4 +23,6 @@
 	--box-shadow: 0 #{rem(2)} #{rem(10)} #{rem(2)} rgba(0, 0, 0, 0.1);
 
 	--mobile-width: #{$mobile};
+
+	--border--radius-button: #{rem(5)};
 }

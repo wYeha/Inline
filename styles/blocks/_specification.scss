@@ -10,18 +10,6 @@
 		grid-template-columns: 1fr;
 	}
 
-	&__title {
-		@include fluid-text(16, 15);
-		line-height: 133%;
-		font-weight: 600;
-
-		@include mobile-above {
-			text-transform: uppercase;
-			font-weight: 500;
-			line-height: 125%;
-		}
-	}
-
 	&__body {
 		display: grid;
 		row-gap: fluid(22, 15);

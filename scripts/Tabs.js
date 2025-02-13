@@ -46,8 +46,40 @@ class Tabs {
 		})
 	}
 
+	activateTab(newTabIndex) {
+		this.state.activeTabIndex = newTabIndex
+		this.buttonElements[newTabIndex].focus()
+	}
+
+	previousTab = () => {
+		const newTabIndex = this.state.activeTabIndex === 0
+			? this.limitTabsIndex
+			: this.state.activeTabIndex - 1
+
+		this.activateTab(newTabIndex)
+	}
+	nextTab = () => {
+		const newTabIndex = this.state.activeTabIndex === this.limitTabsIndex
+			? 0
+			: this.state.activeTabIndex + 1
+
+		this.activateTab(newTabIndex)
+	}
+
 	onButtonClick(buttonIndex) {
 		this.state.activeTabIndex = buttonIndex
+		this.updateUI()
+	}
+
+	onKeyDown = (event) => {
+		const { code, metaKey } = event
+
+		const action = {
+			ArrowLeft: this.previousTab,
+			ArrowRight: this.nextTab
+		}[code]
+
+		action?.()
 		this.updateUI()
 	}
 
@@ -55,6 +87,8 @@ class Tabs {
 		this.buttonElements.forEach((buttonElement, index) => {
 			buttonElement.addEventListener('click', () => this.onButtonClick(index))
 		})
+
+		this.rootElement.addEventListener('keydown', this.onKeyDown)
 	}
 }
 
