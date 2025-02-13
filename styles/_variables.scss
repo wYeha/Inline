@@ -20,4 +20,6 @@
 	--transition-duration: 0.2s;
 
 	--box-shadow: 0 #{rem(2)} #{rem(10)} #{rem(2)} rgba(0, 0, 0, 0.1);
+
+	--mobile-width: #{$mobile};
 }

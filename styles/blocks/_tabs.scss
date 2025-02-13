@@ -2,6 +2,10 @@
 
 .tabs {
 
+	&__body {
+		padding-bottom: rem(16);
+	}
+
 	&__content {
 		&:not(.is-active) {
 			display: none;
@@ -57,14 +61,12 @@
 
 	&__button {
 		@include fluid-text(16, 15);
-		
+
 		padding-top: rem(16);
 		background-color: transparent;
 		font-weight: 500;
 		color: var(--color-base);
 		padding-bottom: fluid(14, 5);
-
-
 
 		&:not(.is-active) {
 			@include underline(transparent, 0);

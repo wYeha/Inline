@@ -15,6 +15,7 @@
 	&__link {
 		text-decoration: none;
 		color: inherit;
+		line-height: 1.2;
 
 		&::after {
 			position: absolute;
@@ -25,7 +26,7 @@
 
 
 	@include mobile {
-		width: rem(288);
+		width: rem(300);
 		padding: rem(20);
 		grid-template-columns: rem(100) auto;
 		grid-template-rows: 1fr 1fr auto;
@@ -91,7 +92,6 @@
 	}
 
 	&__price-container {
-		position: relative;
 
 		@include mobile {
 			grid-row: 2;
